@@ -1,0 +1,26 @@
+name: CI
+
+# her push-da isleyir
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # repodaki kodu github-in serverine yukleyir
+      - uses: actions/checkout@v5
+
+      # python qurasdirir
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      # requirements.txt-deki paketleri yukleyir
+      - name: Paketleri yukle
+        run: pip install -r requirements.txt
+
+      # testleri isledir, biri de fail olsa is qirmizi olur
+      - name: Testleri islet
+        run: pytest -v
